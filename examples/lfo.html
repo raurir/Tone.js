@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>Noise LFO</title>
+	<script type="text/javascript" src="../build/Tone.js"></script>
+<body>
+	<div id="Content">
+		</div>
+	</div>
+	<script id="JSCode" type="text/javascript">
+	function createFilteredNoise(options) {
+		var filter = new Tone.AutoFilter({
+			"frequency" : options.frequency,
+			"depth" : 0.9,
+			"min" : options.min,
+			"max" : options.max
+		}).toMaster().start();
+		var noise = new Tone.Noise({
+			type: options.type,
+			"volume" : -5,
+		}).connect(filter).start();
+
+		// var noise = new Tone.Noise("pink").start();
+		// var autoFilter = new Tone.AutoFilter({
+		// 	"frequency" : "8m",
+		// 	"min" : 800,
+		// 	"max" : 15000
+		// }).connect(Tone.Master);
+		// noise.connect(autoFilter);
+		// autoFilter.start();
+
+		// setInterval(function() {
+		// 	var newSpeed = Math.random() * 20;
+		// 	filter.frequency.rampTo(newSpeed, 1.5);
+		// }, options.timeout);
+
+		var newSpeed = Math.random() * 20 + 2;
+		filter.frequency.rampTo(newSpeed, 20);
+
+	}
+	createFilteredNoise({frequency: Math.random() * 10 + 2, type: "white", timeout: 4000, min: 800, max: 20000});
+	createFilteredNoise({frequency: Math.random() * 10 + 2, type: "brown", timeout: 8000, min: 16000, max: 20000});
+	// createFilteredNoise({timeout: 16000, min: 800, max: 20000});
+	</script>
+</body>
+</html>
